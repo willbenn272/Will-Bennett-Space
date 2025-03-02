@@ -1,9 +1,9 @@
 body {
-    background-color: dodger blue;
+    background-color: dodgerblue;
 }
 h1 {
     text-align: center;
 }
-a {
+li {
     font-size: 15px;
 }

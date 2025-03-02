@@ -3,6 +3,7 @@ body {
 }
 h1 {
     text-align: center;
+    background-color: SlateBlue;
 }
 a {
     font-size: 25px;

@@ -4,20 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .question {
-            margin-bottom: 20px;
-        }
-        .options {
-            margin-left: 20px;
-        }
-        .submit-btn {
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -35,25 +22,21 @@
             </div>
         </div>
 
-        <!-- Question 2 -->
+        <!-- Question 2 (Fill in the blank) -->
         <div class="question">
-            <p>2. Who wrote the play 'Romeo and Juliet'?</p>
-            <div class="options">
-                <label><input type="radio" name="q2" value="a"> A) Shakespeare</label><br>
-                <label><input type="radio" name="q2" value="b"> B) Dickens</label><br>
-                <label><input type="radio" name="q2" value="c"> C) Austen</label><br>
-                <label><input type="radio" name="q2" value="d"> D) Hemingway</label>
-            </div>
+            <p>2. Who wrote the play "Romeo and Juliet"? (Fill in the blank)</p>
+            <input type="text" id="q2_answer" placeholder="Enter your answer here">
         </div>
 
-        <!-- Question 3 -->
+        <!-- Question 3 (Multiple answers) -->
         <div class="question">
-            <p>3. What is the largest planet in our solar system?</p>
+            <p>3. Which of the following planets are gas giants? (Select all that apply)</p>
             <div class="options">
-                <label><input type="radio" name="q3" value="a"> A) Earth</label><br>
-                <label><input type="radio" name="q3" value="b"> B) Mars</label><br>
-                <label><input type="radio" name="q3" value="c"> C) Jupiter</label><br>
-                <label><input type="radio" name="q3" value="d"> D) Saturn</label>
+                <label><input type="checkbox" name="q3" value="a"> A) Jupiter</label><br>
+                <label><input type="checkbox" name="q3" value="b"> B) Earth</label><br>
+                <label><input type="checkbox" name="q3" value="c"> C) Saturn</label><br>
+                <label><input type="checkbox" name="q3" value="d"> D) Mars</label><br>
+                <label><input type="checkbox" name="q3" value="e"> E) Neptune</label>
             </div>
         </div>
 
@@ -73,13 +56,25 @@
                 score++;
             }
 
-            // Question 2
-            if (document.querySelector('input[name="q2"]:checked')?.value === 'a') {
+            // Question 2 (Fill in the blank)
+            const q2Answer = document.getElementById("q2_answer").value.trim().toLowerCase();
+            if (q2Answer === "shakespeare") {
                 score++;
             }
 
-            // Question 3
-            if (document.querySelector('input[name="q3"]:checked')?.value === 'c') {
+            // Question 3 (Multiple correct answers)
+            const q3Answers = document.querySelectorAll('input[name="q3"]:checked');
+            const correctAnswers = ['a', 'c', 'e']; // Correct answers are Jupiter, Saturn, and Neptune
+            let correctCount = 0;
+
+            q3Answers.forEach(answer => {
+                if (correctAnswers.includes(answer.value)) {
+                    correctCount++;
+                }
+            });
+
+            // If the user selected exactly the correct answers, add a point
+            if (correctCount === correctAnswers.length && q3Answers.length === correctAnswers.length) {
                 score++;
             }
 

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options {
+            margin-left: 20px;
+        }
+        .submit-btn {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Basic Quiz</h1>
+
+    <div id="quiz">
+        <!-- Question 1 -->
+        <div class="question">
+            <p>1. What is the capital of France?</p>
+            <div class="options">
+                <label><input type="radio" name="q1" value="a"> A) Paris</label><br>
+                <label><input type="radio" name="q1" value="b"> B) London</label><br>
+                <label><input type="radio" name="q1" value="c"> C) Rome</label><br>
+                <label><input type="radio" name="q1" value="d"> D) Berlin</label>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question">
+            <p>2. Who wrote the play 'Romeo and Juliet'?</p>
+            <div class="options">
+                <label><input type="radio" name="q2" value="a"> A) Shakespeare</label><br>
+                <label><input type="radio" name="q2" value="b"> B) Dickens</label><br>
+                <label><input type="radio" name="q2" value="c"> C) Austen</label><br>
+                <label><input type="radio" name="q2" value="d"> D) Hemingway</label>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question">
+            <p>3. What is the largest planet in our solar system?</p>
+            <div class="options">
+                <label><input type="radio" name="q3" value="a"> A) Earth</label><br>
+                <label><input type="radio" name="q3" value="b"> B) Mars</label><br>
+                <label><input type="radio" name="q3" value="c"> C) Jupiter</label><br>
+                <label><input type="radio" name="q3" value="d"> D) Saturn</label>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button class="submit-btn" onclick="checkAnswers()">Submit</button>
+
+        <!-- Result -->
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function checkAnswers() {
+            let score = 0;
+
+            // Question 1
+            if (document.querySelector('input[name="q1"]:checked')?.value === 'a') {
+                score++;
+            }
+
+            // Question 2
+            if (document.querySelector('input[name="q2"]:checked')?.value === 'a') {
+                score++;
+            }
+
+            // Question 3
+            if (document.querySelector('input[name="q3"]:checked')?.value === 'c') {
+                score++;
+            }
+
+            // Display result
+            document.getElementById("result").innerText = `You scored ${score} out of 3.`;
+        }
+    </script>
+</body>
+</html>

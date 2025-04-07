@@ -3,20 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>History of the World Wide Web Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options {
+            margin-left: 20px;
+        }
+        .submit-btn, .restart-btn {
+            margin-top: 20px;
+        }
+        .correct-answer {
+            color: green;
+        }
+        .incorrect-answer {
+            color: red;
+        }
+    </style>
 </head>
 <body>
+
     <h1>History of the World Wide Web Quiz</h1>
-    <header>
-    <nav>
-      <ul>
-        <li>
-          <a href="index.html">Homepage</a>
-        </li>
-      </ul>
-    </nav>
-  </header>
+
     <div id="quiz">
         <!-- Question 1 -->
         <div class="question">
@@ -50,8 +62,12 @@
         <!-- Submit Button -->
         <button class="submit-btn" onclick="checkAnswers()">Submit</button>
 
+        <!-- Restart Button -->
+        <button class="restart-btn" onclick="restartQuiz()">Restart Quiz</button>
+
         <!-- Result -->
         <p id="result"></p>
+        <div id="correct-answers"></div>
     </div>
 
     <script>
@@ -59,34 +75,76 @@
             let score = 0;
 
             // Question 1
-            if (document.querySelector('input[name="q1"]:checked')?.value === 'b') {
-                score++;
-            }
+            const q1Answer = document.querySelector('input[name="q1"]:checked');
+            const q1Correct = 'b';
+            const q1Result = (q1Answer && q1Answer.value === q1Correct) ? true : false;
 
             // Question 2 (Fill in the blank)
             const q2Answer = document.getElementById("q2_answer").value.trim();
-            if (q2Answer === "1991") {
-                score++;
-            }
+            const q2Correct = "1991";
+            const q2Result = (q2Answer === q2Correct);
 
             // Question 3 (Multiple correct answers)
             const q3Answers = document.querySelectorAll('input[name="q3"]:checked');
-            const correctAnswers = ['a', 'b', 'd']; // Mosaic, Internet Explorer, and Netscape Navigator
-            let correctCount = 0;
+            const q3Correct = ['a', 'b', 'd']; // Mosaic, Internet Explorer, and Netscape Navigator
+            let q3Result = true;
 
-            q3Answers.forEach(answer => {
-                if (correctAnswers.includes(answer.value)) {
-                    correctCount++;
-                }
-            });
-
-            // If the user selected exactly the correct answers, add a point
-            if (correctCount === correctAnswers.length && q3Answers.length === correctAnswers.length) {
-                score++;
+            const selectedAnswers = Array.from(q3Answers).map(input => input.value);
+            if (selectedAnswers.length !== q3Correct.length || !selectedAnswers.every(answer => q3Correct.includes(answer))) {
+                q3Result = false;
             }
 
+            // Calculate score
+            if (q1Result) score++;
+            if (q2Result) score++;
+            if (q3Result) score++;
+
             // Display result
-            document.getElementById("result").innerText = `You scored ${score} out of 3.`;
+            let resultMessage = `You scored ${score} out of 3.`;
+            if (score >= 2) {
+                resultMessage += " You passed the quiz!";
+            } else {
+                resultMessage += " You failed the quiz. Try again!";
+            }
+
+            document.getElementById("result").innerText = resultMessage;
+
+            // Show correct answers
+            const correctAnswersDiv = document.getElementById("correct-answers");
+            correctAnswersDiv.innerHTML = `
+                <h3>Correct Answers:</h3>
+                <p>1. The correct answer for "Who is credited with inventing the World Wide Web?" is: <span class="correct-answer">Tim Berners-Lee (B)</span></p>
+                <p>2. The correct answer for "What year was the first website launched?" is: <span class="correct-answer">1991</span></p>
+                <p>3. The correct answers for "Which of the following were early web browsers?" are: <span class="correct-answer">Mosaic (A), Internet Explorer (B), and Netscape Navigator (D)</span></p>
+            `;
+
+            // Show user's incorrect answers in red
+            if (!q1Result) {
+                document.querySelector('input[name="q1"][value="b"]').parentElement.classList.add('correct-answer');
+                document.querySelector('input[name="q1"]:checked')?.parentElement.classList.add('incorrect-answer');
+            }
+            if (!q2Result) {
+                document.getElementById("q2_answer").classList.add('incorrect-answer');
+            }
+            if (!q3Result) {
+                q3Answers.forEach(input => {
+                    if (!q3Correct.includes(input.value)) {
+                        input.parentElement.classList.add('incorrect-answer');
+                    }
+                });
+            }
+        }
+
+        function restartQuiz() {
+            // Clear all selections
+            document.querySelectorAll('input[type="radio"], input[type="checkbox"], input[type="text"]').forEach(input => {
+                input.checked = false;
+                input.value = '';
+            });
+
+            // Reset result and correct answers display
+            document.getElementById("result").innerText = '';
+            document.getElementById("correct-answers").innerHTML = '';
         }
     </script>
 </body>

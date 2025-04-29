@@ -1,148 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>History of the World Wide Web Quiz</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Self-Assessment Quiz</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1>History of the World Wide Web Quiz</h1>
-    <h3>Table of contents</h3>
-    <nav>
-        <ul>
-            <li>
-                <a href="index.html">Homepage</a>
-            </li>
-            <li>
-                <a href="subject1.html">Topic 1</a>
-            </li>
-            <li>
-                <a href="subject2.html">Topic 2</a>
-            </li>
-            <li>
-                <a href="resources.html">Resources</a>
-        </ul>
-    </nav>
-    <h3>Quiz</h3>
-    <div id="quiz">
-        <!-- Question 1 -->
-        <div class="question">
-            <p>1. Who is credited with inventing the World Wide Web?</p>
-            <div class="options">
-                <label><input type="radio" name="q1" value="a"> A) Steve Jobs</label><br>
-                <label><input type="radio" name="q1" value="b"> B) Tim Berners-Lee</label><br>
-                <label><input type="radio" name="q1" value="c"> C) Bill Gates</label><br>
-                <label><input type="radio" name="q1" value="d"> D) Mark Zuckerberg</label>
-            </div>
-        </div>
+<!-- Navigation menu -->
+<nav>
+  <ul class="nav-menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="topic1.html">Topic 1</a></li>
+    <li><a href="topic2.html">Topic 2</a></li>
+    <li><a href="references.html">References</a></li>
+    <li><a href="quiz.html">Quiz</a></li>
+  </ul>
+</nav>
 
-        <!-- Question 2 (Fill in the blank) -->
-        <div class="question">
-            <p>2. What year was the first website launched? (Fill in the blank)</p>
-            <input type="text" id="q2_answer" placeholder="Enter the year here">
-        </div>
+<main>
+  <h1>Quiz: Test Your Knowledge</h1>
+  <form id="quizForm">
+    <!-- Q1: Multiple Choice - Single Correct -->
+    <fieldset>
+      <legend>1. What does HTML stand for?</legend>
+      <label><input type="radio" name="q1" value="a"> HyperText Markup Language</label><br>
+      <label><input type="radio" name="q1" value="b"> HighText Machine Language</label><br>
+      <label><input type="radio" name="q1" value="c"> Hyper Tool Markup Language</label>
+    </fieldset>
 
-        <!-- Question 3 (Multiple answers) -->
-        <div class="question">
-            <p>3. Which of the following were early web browsers? (Select all that apply)</p>
-            <div class="options">
-                <label><input type="checkbox" name="q3" value="a"> A) Mosaic</label><br>
-                <label><input type="checkbox" name="q3" value="b"> B) Internet Explorer</label><br>
-                <label><input type="checkbox" name="q3" value="c"> C) Firefox</label><br>
-                <label><input type="checkbox" name="q3" value="d"> D) Netscape Navigator</label><br>
-                <label><input type="checkbox" name="q3" value="e"> E) Google Chrome</label>
-            </div>
-        </div>
+    <!-- Q2: Multiple Choice - Single Correct -->
+    <fieldset>
+      <legend>2. What property is used to change text color in CSS?</legend>
+      <label><input type="radio" name="q2" value="a"> background-color</label><br>
+      <label><input type="radio" name="q2" value="b"> font-style</label><br>
+      <label><input type="radio" name="q2" value="c"> color</label>
+    </fieldset>
 
-        <!-- Submit Button -->
-        <button class="submit-btn" onclick="checkAnswers()">Submit</button>
+    <!-- Q3: Fill in the blank -->
+    <fieldset>
+      <legend>3. Fill in the blank: The ____ element is used to define a table row.</legend>
+      <input type="text" name="q3">
+    </fieldset>
 
-        <!-- Restart Button -->
-        <button class="restart-btn" onclick="restartQuiz()">Restart Quiz</button>
+    <button type="button" onclick="gradeQuiz()">Submit</button>
+    <button type="reset" onclick="resetResults()">Restart</button>
+  </form>
 
-        <!-- Result -->
-        <p id="result"></p>
-        <div id="correct-answers"></div>
-    </div>
+  <div id="results"></div>
+</main>
 
-    <script>
-        function checkAnswers() {
-            let score = 0;
+<script>
+  function gradeQuiz() {
+    const results = document.getElementById("results");
+    results.innerHTML = ""; // Clear previous results
+    let score = 0;
+    let total = 5;
 
-            // Question 1
-            const q1Answer = document.querySelector('input[name="q1"]:checked');
-            const q1Correct = 'b';
-            const q1Result = (q1Answer && q1Answer.value === q1Correct) ? true : false;
+    // Answers
+    const answers = {
+      q1: "a",
+      q2: "c",
+      q3: "tr",
+    };
 
-            // Question 2 (Fill in the blank)
-            const q2Answer = document.getElementById("q2_answer").value.trim();
-            const q2Correct = "1991";
-            const q2Result = (q2Answer === q2Correct);
+    // Q1
+    let q1 = document.querySelector('input[name="q1"]:checked');
+    if (q1 && q1.value === answers.q1) score++;
+    results.innerHTML += `<p>Q1: Your answer: ${q1 ? q1.value : "None"} - Correct: ${answers.q1}</p>`;
 
-            // Question 3 (Multiple correct answers)
-            const q3Answers = document.querySelectorAll('input[name="q3"]:checked');
-            const q3Correct = ['a', 'b', 'd']; // Mosaic, Internet Explorer, and Netscape Navigator
-            let q3Result = true;
+    // Q2
+    let q2 = document.querySelector('input[name="q2"]:checked');
+    if (q2 && q2.value === answers.q2) score++;
+    results.innerHTML += `<p>Q2: Your answer: ${q2 ? q2.value : "None"} - Correct: ${answers.q2}</p>`;
 
-            const selectedAnswers = Array.from(q3Answers).map(input => input.value);
-            if (selectedAnswers.length !== q3Correct.length || !selectedAnswers.every(answer => q3Correct.includes(answer))) {
-                q3Result = false;
-            }
+    // Q3
+    let q3 = document.querySelector('input[name="q3"]').value.trim().toLowerCase();
+    if (q3 === answers.q3) score++;
+    results.innerHTML += `<p>Q3: Your answer: ${q3} - Correct: ${answers.q3}</p>`;
+  }
 
-            // Calculate score
-            if (q1Result) score++;
-            if (q2Result) score++;
-            if (q3Result) score++;
+  function resetResults() {
+    document.getElementById("results").innerHTML = "";
+  }
+</script>
 
-            // Display result
-            let resultMessage = `You scored ${score} out of 3.`;
-            if (score >= 2) {
-                resultMessage += " You passed the quiz!";
-            } else {
-                resultMessage += " You failed the quiz. Try again!";
-            }
-
-            document.getElementById("result").innerText = resultMessage;
-
-            // Show correct answers
-            const correctAnswersDiv = document.getElementById("correct-answers");
-            correctAnswersDiv.innerHTML = `
-                <h3>Correct Answers:</h3>
-                <p>1. The correct answer for "Who is credited with inventing the World Wide Web?" is: <span class="correct-answer">Tim Berners-Lee (B)</span></p>
-                <p>2. The correct answer for "What year was the first website launched?" is: <span class="correct-answer">1991</span></p>
-                <p>3. The correct answers for "Which of the following were early web browsers?" are: <span class="correct-answer">Mosaic (A), Internet Explorer (B), and Netscape Navigator (D)</span></p>
-            `;
-
-            // Show user's incorrect answers in red
-            if (!q1Result) {
-                document.querySelector('input[name="q1"][value="b"]').parentElement.classList.add('correct-answer');
-                document.querySelector('input[name="q1"]:checked')?.parentElement.classList.add('incorrect-answer');
-            }
-            if (!q2Result) {
-                document.getElementById("q2_answer").classList.add('incorrect-answer');
-            }
-            if (!q3Result) {
-                q3Answers.forEach(input => {
-                    if (!q3Correct.includes(input.value)) {
-                        input.parentElement.classList.add('incorrect-answer');
-                    }
-                });
-            }
-        }
-
-        function restartQuiz() {
-            // Clear all selections
-            document.querySelectorAll('input[type="radio"], input[type="checkbox"], input[type="text"]').forEach(input => {
-                input.checked = false;
-                input.value = '';
-            });
-
-            // Reset result and correct answers display
-            document.getElementById("result").innerText = '';
-            document.getElementById("correct-answers").innerHTML = '';
-        }
-    </script>
 </body>
 </html>

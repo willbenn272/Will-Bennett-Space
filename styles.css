@@ -91,3 +91,24 @@ button:hover {
   background-color: #f4f4f4;
   border: 1px solid #ccc;
 }
+
+/* Background colors for individual pages */
+.home-bg {
+  background-color: #f9f9f9; /* Light gray */
+}
+
+.topic1-bg {
+  background-color: #e3f2fd; /* Light blue */
+}
+
+.topic2-bg {
+  background-color: #fce4ec; /* Light pink */
+}
+
+.references-bg {
+  background-color: #f3e5f5; /* Light purple */
+}
+
+.quiz-bg {
+  background-color: #fff8e1; /* Light yellow */
+}

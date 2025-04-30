@@ -1,93 +1,69 @@
-/* Global settings */
+/* Basic Styling */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
+  background-color: #f1f1f1;
+  color: #333;
 }
 
-/* Navigation styling */
-.nav-menu {
+header {
+  background-color: #005577;
+  color: white;
+  padding: 20px;
+}
+
+/* Flexbox Menu */
+.menu {
   display: flex;
-  background-color: #333;
-  padding: 10px;
+  gap: 15px;
   list-style: none;
-  justify-content: center;
+  padding: 0;
+  margin: 10px 0;
 }
 
-.nav-menu li {
-  margin: 0 15px;
-}
-
-.nav-menu a {
+.menu li a {
   color: white;
   text-decoration: none;
-  padding: 8px 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 
-.nav-menu a:hover {
-  background-color: #555;
+.menu li a:hover {
+  background-color: #007799;
 }
 
-/* Layout using flexbox */
-main, section {
+/* Main Layout */
+main {
+  display: grid;
+  grid-template-columns: 1fr;
   padding: 20px;
-  margin: 20px;
+  gap: 20px;
 }
 
-/* Table styles */
+/* Table Styling */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
-}
-
-table, th, td {
-  border: 1px solid black;
-  padding: 10px;
-}
-
-th {
-  background-color: #f2f2f2;
-}
-
-/* Image styling */
-img {
-  margin-top: 20px;
-  border: 2px solid #ccc;
-}
-
-/* Headings */
-h1, h2 {
-  color: #004080;
-}
-
-fieldset {
-  margin: 20px 0;
-  padding: 15px;
-  border: 2px solid #ddd;
-}
-
-legend {
-  font-weight: bold;
-  color: #004080;
-}
-
-button {
   margin-top: 10px;
-  padding: 8px 16px;
-  background-color: #004080;
-  color: white;
-  border: none;
-  cursor: pointer;
 }
 
-button:hover {
-  background-color: #0066cc;
-}
-
-#results {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: #f4f4f4;
+th, td {
   border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+  background-color: #fff;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #ccc;
+  margin-top: 10px;
+}
+
+/* Additional Styling */
+h1, h2 {
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 5px;
 }

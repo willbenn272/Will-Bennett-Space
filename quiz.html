@@ -1,89 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Self-Assessment Quiz</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Web History Quiz</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <header>
+    <h1>World Wide Web Quiz</h1>
+    <nav>
+      <ul class="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="topic1.html">Origins</a></li>
+        <li><a href="topic2.html">Evolution</a></li>
+        <li><a href="references.html">References</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<!-- Navigation menu -->
-<nav>
-  <ul class="nav-menu">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="topic1.html">Topic 1</a></li>
-    <li><a href="topic2.html">Topic 2</a></li>
-    <li><a href="references.html">References</a></li>
-    <li><a href="quiz.html">Quiz</a></li>
-  </ul>
-</nav>
+  <main>
+    <form id="quizForm">
+      <h2>Test your knowledge!</h2>
 
-<main>
-  <h1>Quiz: Test Your Knowledge</h1>
-  <form id="quizForm">
-    <!-- Q1: Multiple Choice - Single Correct -->
-    <fieldset>
-      <legend>1. What does HTML stand for?</legend>
-      <label><input type="radio" name="q1" value="a"> HyperText Markup Language</label><br>
-      <label><input type="radio" name="q1" value="b"> HighText Machine Language</label><br>
-      <label><input type="radio" name="q1" value="c"> Hyper Tool Markup Language</label>
-    </fieldset>
+      <!-- Question 1 -->
+      <p><strong>1. Who is considered the inventor of the World Wide Web?</strong></p>
+      <label><input type="radio" name="q1" value="a" /> Bill Gates</label><br />
+      <label><input type="radio" name="q1" value="b" /> Tim Berners-Lee</label><br />
+      <label><input type="radio" name="q1" value="c" /> Steve Jobs</label><br />
 
-    <!-- Q2: Multiple Choice - Single Correct -->
-    <fieldset>
-      <legend>2. What property is used to change text color in CSS?</legend>
-      <label><input type="radio" name="q2" value="a"> background-color</label><br>
-      <label><input type="radio" name="q2" value="b"> font-style</label><br>
-      <label><input type="radio" name="q2" value="c"> color</label>
-    </fieldset>
+      <!-- Question 2 -->
+      <p><strong>2. What does HTML stand for?</strong></p>
+      <label><input type="radio" name="q2" value="a" /> HighText Machine Language</label><br />
+      <label><input type="radio" name="q2" value="b" /> HyperText Markup Language</label><br />
+      <label><input type="radio" name="q2" value="c" /> Hyper Transfer Markup Language</label><br />
 
-    <!-- Q3: Fill in the blank -->
-    <fieldset>
-      <legend>3. Fill in the blank: The ____ element is used to define a table row.</legend>
-      <input type="text" name="q3">
-    </fieldset>
+      <!-- Question 3 -->
+      <p><strong>3. In what year was the first website published?</strong></p>
+      <label><input type="radio" name="q3" value="a" /> 1995</label><br />
+      <label><input type="radio" name="q3" value="b" /> 1990</label><br />
+      <label><input type="radio" name="q3" value="c" /> 1991</label><br />
 
-    <button type="button" onclick="gradeQuiz()">Submit</button>
-    <button type="reset" onclick="resetResults()">Restart</button>
-  </form>
+      <!-- Question 4 -->
+      <p><strong>4. Fill in the blank: The protocol used to transfer web pages is __________.</strong></p>
+      <input type="text" name="q4" placeholder="Enter your answer" /><br />
 
-  <div id="results"></div>
-</main>
+      <!-- Question 5 -->
+      <p><strong>5. Which of the following are web browsers? (Select all that apply)</strong></p>
+      <label><input type="checkbox" name="q5" value="a" /> Chrome</label><br />
+      <label><input type="checkbox" name="q5" value="b" /> Firefox</label><br />
+      <label><input type="checkbox" name="q5" value="c" /> Windows</label><br />
+      <label><input type="checkbox" name="q5" value="d" /> Safari</label><br /><br />
 
-<script>
-  function gradeQuiz() {
-    const results = document.getElementById("results");
-    results.innerHTML = ""; // Clear previous results
-    let score = 0;
-    let total = 5;
+      <button type="button" onclick="gradeQuiz()">Submit</button>
+      <button type="reset">Restart Quiz</button>
+    </form>
 
-    // Answers
-    const answers = {
-      q1: "a",
-      q2: "c",
-      q3: "tr",
-    };
+    <div id="result"></div>
+  </main>
 
-    // Q1
-    let q1 = document.querySelector('input[name="q1"]:checked');
-    if (q1 && q1.value === answers.q1) score++;
-    results.innerHTML += `<p>Q1: Your answer: ${q1 ? q1.value : "None"} - Correct: ${answers.q1}</p>`;
+  <script>
+    function gradeQuiz() {
+      let score = 0;
+      let output = '<h2>Results:</h2>';
+      let total = 5;
 
-    // Q2
-    let q2 = document.querySelector('input[name="q2"]:checked');
-    if (q2 && q2.value === answers.q2) score++;
-    results.innerHTML += `<p>Q2: Your answer: ${q2 ? q2.value : "None"} - Correct: ${answers.q2}</p>`;
+      const q1 = document.querySelector('input[name="q1"]:checked');
+      const q2 = document.querySelector('input[name="q2"]:checked');
+      const q3 = document.querySelector('input[name="q3"]:checked');
+      const q4 = document.querySelector('input[name="q4"]').value.trim().toLowerCase();
+      const q5 = document.querySelectorAll('input[name="q5"]:checked');
 
-    // Q3
-    let q3 = document.querySelector('input[name="q3"]').value.trim().toLowerCase();
-    if (q3 === answers.q3) score++;
-    results.innerHTML += `<p>Q3: Your answer: ${q3} - Correct: ${answers.q3}</p>`;
-  }
+      // Q1
+      if (q1 && q1.value === "b") {
+        score++;
+        output += "<p>1. Correct!</p>";
+      } else {
+        output += "<p>1. Incorrect. Answer: Tim Berners-Lee</p>";
+      }
 
-  function resetResults() {
-    document.getElementById("results").innerHTML = "";
-  }
-</script>
+      // Q2
+      if (q2 && q2.value === "b") {
+        score++;
+        output += "<p>2. Correct!</p>";
+      } else {
+        output += "<p>2. Incorrect. Answer: HyperText Markup Language</p>";
+      }
 
+      // Q3
+      if (q3 && q3.value === "c") {
+        score++;
+        output += "<p>3. Correct!</p>";
+      } else {
+        output += "<p>3. Incorrect. Answer: 1991</p>";
+      }
+
+      // Q4
+      if (q4 === "http") {
+        score++;
+        output += "<p>4. Correct!</p>";
+      } else {
+        output += "<p>4. Incorrect. Answer: HTTP</p>";
+      }
+
+      // Q5
+      const correctAnswers = ["a", "b", "d"];
+      const selected = Array.from(q5).map(input => input.value);
+      const correct = correctAnswers.every(ans => selected.includes(ans)) && selected.length === correctAnswers.length;
+
+      if (correct) {
+        score++;
+        output += "<p>5. Correct!</p>";
+      } else {
+        output += "<p>5. Incorrect. Answers: Chrome, Firefox, Safari</p>";
+      }
+
+      const pass = score >= 3 ? "PASS" : "FAIL";
+      output += `<h3>Total Score: ${score} / ${total} – ${pass}</h3>`;
+      document.getElementById("result").innerHTML = output;
+    }
+  </script>
 </body>
 </html>

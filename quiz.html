@@ -30,27 +30,15 @@
       <label><input type="radio" name="q1" value="c" /> Steve Jobs</label><br />
 
       <!-- Question 2 -->
-      <p><strong>2. What does HTML stand for?</strong></p>
-      <label><input type="radio" name="q2" value="a" /> HighText Machine Language</label><br />
-      <label><input type="radio" name="q2" value="b" /> HyperText Markup Language</label><br />
-      <label><input type="radio" name="q2" value="c" /> Hyper Transfer Markup Language</label><br />
+      <p><strong>2. Fill in the blank: The protocol used to transfer web pages is __________.</strong></p>
+      <input type="text" name="q2" placeholder="Enter your answer" /><br />
 
       <!-- Question 3 -->
-      <p><strong>3. In what year was the first website published?</strong></p>
-      <label><input type="radio" name="q3" value="a" /> 1995</label><br />
-      <label><input type="radio" name="q3" value="b" /> 1990</label><br />
-      <label><input type="radio" name="q3" value="c" /> 1991</label><br />
-
-      <!-- Question 4 -->
-      <p><strong>4. Fill in the blank: The protocol used to transfer web pages is __________.</strong></p>
-      <input type="text" name="q4" placeholder="Enter your answer" /><br />
-
-      <!-- Question 5 -->
-      <p><strong>5. Which of the following are web browsers? (Select all that apply)</strong></p>
-      <label><input type="checkbox" name="q5" value="a" /> Chrome</label><br />
-      <label><input type="checkbox" name="q5" value="b" /> Firefox</label><br />
-      <label><input type="checkbox" name="q5" value="c" /> Windows</label><br />
-      <label><input type="checkbox" name="q5" value="d" /> Safari</label><br /><br />
+      <p><strong>3. Which of the following are web browsers? (Select all that apply)</strong></p>
+      <label><input type="checkbox" name="q3" value="a" /> Chrome</label><br />
+      <label><input type="checkbox" name="q3" value="b" /> Firefox</label><br />
+      <label><input type="checkbox" name="q3" value="c" /> Windows</label><br />
+      <label><input type="checkbox" name="q3" value="d" /> Safari</label><br /><br />
 
       <button type="button" onclick="gradeQuiz()">Submit</button>
       <button type="reset">Restart Quiz</button>
@@ -66,10 +54,8 @@
       let total = 5;
 
       const q1 = document.querySelector('input[name="q1"]:checked');
-      const q2 = document.querySelector('input[name="q2"]:checked');
-      const q3 = document.querySelector('input[name="q3"]:checked');
-      const q4 = document.querySelector('input[name="q4"]').value.trim().toLowerCase();
-      const q5 = document.querySelectorAll('input[name="q5"]:checked');
+      const q2 = document.querySelector('input[name="q2"]').value.trim().toLowerCase();
+      const q3 = document.querySelectorAll('input[name="q3"]:checked');
 
       // Q1
       if (q1 && q1.value === "b") {
@@ -80,39 +66,23 @@
       }
 
       // Q2
-      if (q2 && q2.value === "b") {
+      if (q2 === "http") {
         score++;
         output += "<p>2. Correct!</p>";
       } else {
-        output += "<p>2. Incorrect. Answer: HyperText Markup Language</p>";
+        output += "<p>2. Incorrect. Answer: HTTP</p>";
       }
 
       // Q3
-      if (q3 && q3.value === "c") {
-        score++;
-        output += "<p>3. Correct!</p>";
-      } else {
-        output += "<p>3. Incorrect. Answer: 1991</p>";
-      }
-
-      // Q4
-      if (q4 === "http") {
-        score++;
-        output += "<p>4. Correct!</p>";
-      } else {
-        output += "<p>4. Incorrect. Answer: HTTP</p>";
-      }
-
-      // Q5
       const correctAnswers = ["a", "b", "d"];
-      const selected = Array.from(q5).map(input => input.value);
+      const selected = Array.from(q3).map(input => input.value);
       const correct = correctAnswers.every(ans => selected.includes(ans)) && selected.length === correctAnswers.length;
 
       if (correct) {
         score++;
-        output += "<p>5. Correct!</p>";
+        output += "<p>3. Correct!</p>";
       } else {
-        output += "<p>5. Incorrect. Answers: Chrome, Firefox, Safari</p>";
+        output += "<p>3. Incorrect. Answers: Chrome, Firefox, Safari</p>";
       }
 
       const pass = score >= 3 ? "PASS" : "FAIL";
